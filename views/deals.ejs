@@ -1,0 +1,5 @@
+<table class='innerFeedTable'><thead><tr><th class='imgcol'></th><th class='titlecol'></th></tr></thead>
+<% for (var i=0;i<data.length; i++) { %>
+    <tr><td><a href='<%= data[i].link %>'><img class='rssImg' src='<%= data[i].img %>'></a></td><td><a href='<%= data[i].link %>'><%= data[i].title %></a></td></tr>
+<% } %>
+</table>

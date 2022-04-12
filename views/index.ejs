@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cale's start page</title>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script>
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      var newsFeedURL = "/news";
+      var dealsFeedURL = "/deals";
+      var techNewsURL = "/tech";
+
+      var feedElem = document.getElementById("newsFeed");
+      var feedLimit = 10;
+
+      $.ajaxSetup({
+        beforeSend: function(request) {
+          request.setRequestHeader("User-Agent","na");
+        }
+      });
+
+      $.ajax({
+        url: newsFeedURL,
+        method: 'GET',
+        dataType: 'html',
+        cache: false,
+        success: function (response) {
+          $('#newsFeed').html(response);
+          $('#newsFeed').find("td").mouseover(function() {
+            $(this).css("background", "#cce6ff");
+            $(this).siblings("td").css("background", "#cce6ff");
+          });
+
+          $("#newsFeed").find("td").mouseout(function() {
+            $(this).css("background", "none");
+            $(this).siblings("td").css("background", "none");
+          });
+        }
+      });
+
+      $.ajax({
+        url: dealsFeedURL,
+        method: 'GET',
+        dataType: 'html',
+        cache: false,
+        success: function (response) {
+          $('#dealFeed').html(response);
+
+          $('#dealFeed').find("td").mouseover(function() {
+            $(this).css("background", "#cce6ff");
+            $(this).siblings("td").css("background", "#cce6ff");
+          });
+
+          $("#dealFeed").find("td").mouseout(function() {
+            $(this).css("background", "none");
+            $(this).siblings("td").css("background", "none");
+          });
+        }
+      });
+
+      $.ajax({
+        url: techNewsURL,
+        method: 'GET',
+        dataType: 'html',
+        cache: false,
+        success: function (response) {
+          $('#techNewsFeed').html(response);
+          $('#techNewsFeed').find("td").mouseover(function() {
+            $(this).css("background", "#cce6ff");
+            $(this).siblings("td").css("background", "#cce6ff");
+          });
+
+          $("#techNewsFeed").find("td").mouseout(function() {
+            $(this).css("background", "none");
+            $(this).siblings("td").css("background", "none");
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+ 
+   <div class="favorites"> 
+   Favorites:
+   <br>
+   <div class="bookmarkDiv"><a href="https://www.facebook.com"><img class="favicon" title="Facebook" src="/images/facebook.jpeg"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.gmail.com"><img class="favicon" title="Gmail" src="/images/gmail.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.woot.com"><img class="favicon" title="Woot!" src="/images/woot.png"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.usatoday.com"><img class="favicon" title="USA Today" src="/images/usatoday.jpeg"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.amazon.com"><img class="favicon" title="Amazon" src="/images/amazon.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.nfl.com"><img class="favicon" title="NFL" src="/images/nfl.png"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.espn.com"><img class="favicon" title="ESPN" src="/images/espn.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.kttc.com"><img class="favicon" title="KTTC" src="/images/kttc.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.wunderground.com"><img class="favicon" title="Weather Underground" src="/images/wunderground.webp"></a></div>
+   <div class="bookmarkDiv"><a href="https://www.dealnews.com/?sort=time"><img class="favicon" title="Deal News" src="/images/dealnews.jpeg"></a></div>
+   <div class="bookmarkDiv"><a href="https://slashdot.org"><img class="favicon" title="Slashdot" src="/images/slashdot.jpeg"></a></div>
+   <div class="bookmarkDiv"><a href="https://macrumors.com"><img class="favicon" title="MacRumors" src="/images/macrumors.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://w3.ibm.com"><img class="favicon" title="w3" src="/images/w3.ico"></a></div>
+   <div class="bookmarkDiv"><a href="https://ibm.webex.com/join/ctrath"><img class="favicon" title="Start Webex" src="/images/webex-favicon.webp"></a></div>
+   </div>
+  
+   <script>
+      $(".bookmarkDiv").mouseover(function() {
+        $(this).css("background", "#cce6ff");
+      });
+
+      $(".bookmarkDiv").mouseout(function() {
+        $(this).css("background", "none");
+      });
+   </script> 
+
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NYSE-IBM/" rel="noopener" target="_blank"><span class="blue-text">IBM Price Today</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+  {
+  "symbol": "NYSE:IBM",
+  "width": 350,
+  "colorTheme": "light",
+  "isTransparent": true,
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+
+   <div class="weather">
+   Weather:
+   <a class="weatherwidget-io" href="https://forecast7.com/en/44d01n92d64/55920/?unit=us" data-label_1="BYRON" data-label_2="WEATHER" data-theme="original" >BYRON WEATHER</a>
+   </div>
+
+   <div class="feeds">
+   <table id="feedTable">
+     <tr>
+       <td>News:<div class="feedDiv" id="newsFeed">News Loading...</div></td>
+       <td>Deals:<div class="feedDiv" id="dealFeed">Deals Loading...</div></td>
+       <td>Tech News:<div class="feedDiv" id="techNewsFeed">Tech News Loading...</div></td>
+     </tr>
+   </table>
+   </div>
+  </body>
+</html>

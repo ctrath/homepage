@@ -1,0 +1,5 @@
+<table id='newsTable' class='innerFeedTable'><thead><tr><th class='titlecol'></th></tr></thead>
+<% for (var i=0;i<data.length; i++) { %>
+    <tr><td><a href='<%= data[i].link %>'><%= data[i].title %></a></td></tr>
+<% } %>
+</table>

@@ -1,0 +1,79 @@
+body {
+  font-family: Arial !important;
+}
+
+.favicon {
+  height: 64px;
+  width: 64px;
+  padding: 5px;
+}
+
+#feedTable tr td {
+  vertical-align: top;
+}
+
+.rssImg {
+  height: 60px;
+  max-width: 100px;
+  width: auto;
+}
+
+.innerFeedTable {
+  table-layout: fixed;
+  width: 420px;
+}
+
+.innerFeedTable tr td a {
+  text-decoration: none;
+  color: #001a4d;
+}
+
+#techNewsTable tr td {
+  padding-top: 10px;
+}
+
+#newsTable tr td {
+  padding-top: 10px;
+}
+
+.imgcol {
+  width: 25%;
+  overflow: hidden;
+}
+
+.titlecol {
+  width: 75%;
+}
+
+.feedDiv {
+  padding-left: 30px;
+  border: 1px solid gray;
+}
+
+.bookmarkDiv {
+  width: 80px;
+  height: 80px;
+  float: left;
+}
+
+.favorites {
+}
+
+.weather {
+  position: relative;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+
+.feeds {
+  position: relative;
+  float: left;
+  clear: both;
+}
+
+.tradingview-widget-container {
+  width: 350px;
+  height: 80px;
+  float: right;
+}
