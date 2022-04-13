@@ -18,6 +18,16 @@ body {
   width: auto;
 }
 
+.reloadImg {
+  height: 16px;
+  width: 16px;
+  padding-left: 5px;
+}
+
+.reloadImg:hover {
+    cursor: pointer;
+}
+
 .innerFeedTable {
   table-layout: fixed;
   width: 420px;

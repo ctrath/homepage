@@ -4,6 +4,7 @@
     <title>Cale's start page</title>
     <meta charset="utf-8">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/all.css' />
 
     <script>
       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
@@ -16,70 +17,90 @@
       var techNewsURL = "/tech";
 
       var feedElem = document.getElementById("newsFeed");
-      var feedLimit = 10;
 
-      $.ajaxSetup({
-        beforeSend: function(request) {
-          request.setRequestHeader("User-Agent","na");
+      function loadNews(elem) {
+        animateRotate(elem, true);
+        $.ajax({
+          url: newsFeedURL,
+          method: 'GET',
+          dataType: 'html',
+          cache: false,
+          success: function (response) {
+            $('#newsFeed').html(response);
+            $('#newsFeed').find("td").mouseover(function() {
+              $(this).css("background", "#cce6ff");
+              $(this).siblings("td").css("background", "#cce6ff");
+            });
+
+            $("#newsFeed").find("td").mouseout(function() {
+              $(this).css("background", "none");
+              $(this).siblings("td").css("background", "none");
+            });
+            animateRotate(elem, false);
+          }
+        });
+      }
+
+      function loadDeals(elem) {
+        animateRotate(elem, true);
+        $.ajax({
+          url: dealsFeedURL,
+          method: 'GET',
+          dataType: 'html',
+          cache: false,
+          success: function (response) {
+            $('#dealFeed').html(response);
+
+            $('#dealFeed').find("td").mouseover(function() {
+              $(this).css("background", "#cce6ff");
+              $(this).siblings("td").css("background", "#cce6ff");
+            });
+
+            $("#dealFeed").find("td").mouseout(function() {
+              $(this).css("background", "none");
+              $(this).siblings("td").css("background", "none");
+            });
+            animateRotate(elem, false);
+          }
+        });
+      }
+
+      function loadTechNews(elem) {
+        animateRotate(elem, true);
+        $.ajax({
+          url: techNewsURL,
+          method: 'GET',
+          dataType: 'html',
+          cache: false,
+          success: function (response) {
+            $('#techNewsFeed').html(response);
+            $('#techNewsFeed').find("td").mouseover(function() {
+              $(this).css("background", "#cce6ff");
+              $(this).siblings("td").css("background", "#cce6ff");
+            });
+
+            $("#techNewsFeed").find("td").mouseout(function() {
+              $(this).css("background", "none");
+              $(this).siblings("td").css("background", "none");
+            });
+            animateRotate(elem, false);
+          }
+        });
+      }
+
+      function animateRotate(elem, rotate) {
+        if (rotate) {
+          elem.addClass("fa-spin");
         }
-      });
-
-      $.ajax({
-        url: newsFeedURL,
-        method: 'GET',
-        dataType: 'html',
-        cache: false,
-        success: function (response) {
-          $('#newsFeed').html(response);
-          $('#newsFeed').find("td").mouseover(function() {
-            $(this).css("background", "#cce6ff");
-            $(this).siblings("td").css("background", "#cce6ff");
-          });
-
-          $("#newsFeed").find("td").mouseout(function() {
-            $(this).css("background", "none");
-            $(this).siblings("td").css("background", "none");
-          });
+        else {
+          elem.removeClass("fa-spin");
         }
-      });
+      }
 
-      $.ajax({
-        url: dealsFeedURL,
-        method: 'GET',
-        dataType: 'html',
-        cache: false,
-        success: function (response) {
-          $('#dealFeed').html(response);
-
-          $('#dealFeed').find("td").mouseover(function() {
-            $(this).css("background", "#cce6ff");
-            $(this).siblings("td").css("background", "#cce6ff");
-          });
-
-          $("#dealFeed").find("td").mouseout(function() {
-            $(this).css("background", "none");
-            $(this).siblings("td").css("background", "none");
-          });
-        }
-      });
-
-      $.ajax({
-        url: techNewsURL,
-        method: 'GET',
-        dataType: 'html',
-        cache: false,
-        success: function (response) {
-          $('#techNewsFeed').html(response);
-          $('#techNewsFeed').find("td").mouseover(function() {
-            $(this).css("background", "#cce6ff");
-            $(this).siblings("td").css("background", "#cce6ff");
-          });
-
-          $("#techNewsFeed").find("td").mouseout(function() {
-            $(this).css("background", "none");
-            $(this).siblings("td").css("background", "none");
-          });
-        }
+      $( document ).ready(function() {
+        loadNews($("#reloadNews"));
+        loadDeals($("#reloadDeals"));
+        loadTechNews($("#reloadTech"));
       });
     </script>
   </head>
@@ -138,9 +159,9 @@
    <div class="feeds">
    <table id="feedTable">
      <tr>
-       <td>News:<div class="feedDiv" id="newsFeed">News Loading...</div></td>
-       <td>Deals:<div class="feedDiv" id="dealFeed">Deals Loading...</div></td>
-       <td>Tech News:<div class="feedDiv" id="techNewsFeed">Tech News Loading...</div></td>
+       <td>News:<i id="reloadNews" class="reloadImg fa-solid fa-sync" onclick="javascript:loadNews($(this));"></i><div class="feedDiv" id="newsFeed">News Loading...</div></td>
+       <td>Deals:<i id="reloadDeals" class="reloadImg fa-solid fa-sync" onclick="javascript:loadDeals($(this));"></i><div class="feedDiv" id="dealFeed">Deals Loading...</div></td>
+       <td>Tech News:<i id="reloadTech" class="reloadImg fa-solid fa-sync" onclick="javascript:loadTechNews($(this));"></i><div class="feedDiv" id="techNewsFeed"></div>Tech News Loading...</div></td>
      </tr>
    </table>
    </div>
