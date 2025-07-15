@@ -11,6 +11,10 @@ var techRouter = require('./routes/tech');
 
 var app = express();
 
+process.on('uncaughtException', err => {
+  console.error('There was an uncaught error', err);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

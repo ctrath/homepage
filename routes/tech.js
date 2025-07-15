@@ -8,6 +8,7 @@ var displayNum = 20;
 router.get('/', function(req, res, next) {
   let renderData = [];  
   (async () => {  
+    // https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pWVXlnQVAB
     let feed = await parser.parseURL('http://rss.slashdot.org/Slashdot/slashdotMain');
     let curDisplayNum = 0;
     for(const item of feed.items) {

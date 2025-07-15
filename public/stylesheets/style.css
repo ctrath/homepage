@@ -3,8 +3,8 @@ body {
 }
 
 .favicon {
-  height: 64px;
-  width: 64px;
+  height: 32px;
+  width: 32px;
   padding: 5px;
 }
 
@@ -61,8 +61,8 @@ body {
 }
 
 .bookmarkDiv {
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 4%;
   float: left;
 }
 

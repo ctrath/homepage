@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.cale.homepage</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/ctrath/Documents/containers/ipvs_workspace/src/github.com/ctrath/homepage/bin</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/bin/node</string>
+        <string>start.js</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StandardErrorPath</key>
+    <string>/tmp/homepage.err</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/homepage.out</string>
+</dict>
+</plist>
+

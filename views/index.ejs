@@ -17,6 +17,7 @@
       var techNewsURL = "/tech";
 
       var feedElem = document.getElementById("newsFeed");
+      var sectionElemsSlice = [];
 
       function loadNews(elem) {
         animateRotate(elem, true);
@@ -36,6 +37,20 @@
               $(this).css("background", "none");
               $(this).siblings("td").css("background", "none");
             });
+
+            var curTime = getCurrentTime();
+            if (!elem.attr("lastrefreshmillis")) {
+              sectionElemsSlice.push(elem);
+            }
+            elem.attr("title", "Last updated: " + curTime);
+            elem.attr("lastrefreshmillis", Date.now());
+            elem.css("color", "");
+
+            animateRotate(elem, false);
+          },
+          error: function(response) {
+            console.error(response);
+            $('#newsFeed').html(response);
             animateRotate(elem, false);
           }
         });
@@ -60,6 +75,20 @@
               $(this).css("background", "none");
               $(this).siblings("td").css("background", "none");
             });
+
+            var curTime = getCurrentTime();
+            if (!elem.attr("lastrefreshmillis")) {
+              sectionElemsSlice.push(elem);
+            }
+            elem.attr("title", "Last updated: " + curTime);
+            elem.attr("lastrefreshmillis", Date.now());
+            elem.css("color", "");
+
+            animateRotate(elem, false);
+          },
+          error: function(response) {
+            console.error(response);
+            $('#dealFeed').html(response);
             animateRotate(elem, false);
           }
         });
@@ -83,6 +112,20 @@
               $(this).css("background", "none");
               $(this).siblings("td").css("background", "none");
             });
+
+            var curTime = getCurrentTime();
+            if (!elem.attr("lastrefreshmillis")) {
+              sectionElemsSlice.push(elem);
+            }
+            elem.attr("title", "Last updated: " + curTime);
+            elem.attr("lastrefreshmillis", Date.now());
+            elem.css("color", "");
+             
+            animateRotate(elem, false);
+          },
+          error: function(response) {
+            console.error(response);
+            $('#techNewsFeed').html(response);
             animateRotate(elem, false);
           }
         });
@@ -97,10 +140,41 @@
         }
       }
 
+      function getCurrentTime() {
+        var currentTimeFormatted = new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true // Set to false for 24-hour format
+        });
+        return currentTimeFormatted;
+      }
+
+      function runTimer() {
+        setTimeout(runTimer, 120000);
+        var curTimeMillis = Date.now();
+        sectionElemsSlice.forEach((elem, index) => {
+          var lastRefreshTime = parseInt(elem.attr("lastrefreshmillis"));
+          if ((curTimeMillis - lastRefreshTime) > 7200000) {
+            //turn red
+            elem.css("color","red");
+          }
+          else if ((curTimeMillis - lastRefreshTime) > 3600000) {
+            //turn yellow
+            elem.css("color","#FFD43B");
+          }
+          else {
+            elem.css("color","");
+          }
+        });
+
+      }
+
       $( document ).ready(function() {
         loadNews($("#reloadNews"));
         loadDeals($("#reloadDeals"));
         loadTechNews($("#reloadTech"));
+        runTimer();
       });
     </script>
   </head>
@@ -122,10 +196,11 @@
    <div class="bookmarkDiv"><a href="https://slashdot.org"><img class="favicon" title="Slashdot" src="/images/slashdot.jpeg"></a></div>
    <div class="bookmarkDiv"><a href="https://macrumors.com"><img class="favicon" title="MacRumors" src="/images/macrumors.ico"></a></div>
    <div class="bookmarkDiv"><a href="https://w3.ibm.com"><img class="favicon" title="w3" src="/images/w3.ico"></a></div>
-   <div class="bookmarkDiv"><a href="https://ibm.webex.com/join/ctrath"><img class="favicon" title="Start Webex" src="/images/webex-favicon.webp"></a></div>
+   <div class="bookmarkDiv"><a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_OWIwZmVlNGQtZTQwYS00ZWZiLWFlMDctY2VlNWU3NGE0ZDA2%40thread.v2/0?context=%7b%22Tid%22%3a%22fcf67057-50c9-4ad4-98f3-ffca64add9e9%22%2c%22Oid%22%3a%22558b3ad9-4475-4808-8bb9-2e78bceb7256%22%7d"><img class="favicon" title="Microsoft Teams" src="/images/msteams.ico"></a></div>
    </div>
   
    <script>
+    /*
       $(".bookmarkDiv").mouseover(function() {
         $(this).css("background", "#cce6ff");
       });
@@ -133,6 +208,52 @@
       $(".bookmarkDiv").mouseout(function() {
         $(this).css("background", "none");
       });
+      */
+     var SMALL=0;
+     var MEDIUM=1;
+     var LARGE=2;
+
+      $(function() {
+        $(".bookmarkDiv").find("img").hover(
+          function() {
+            curElem=$(this).closest("div");
+            leftElem=curElem.prev("div");
+            rightElem=curElem.next("div");
+            animateIcon(curElem, LARGE);
+            if (leftElem) animateIcon(leftElem, MEDIUM);
+            if (rightElem) animateIcon(rightElem,MEDIUM);
+          }, function() {
+            curElem=$(this).closest("div");
+            leftElem=curElem.prev("div");
+            rightElem=curElem.next("div");
+            animateIcon(curElem, SMALL);
+            if (leftElem) animateIcon(leftElem, SMALL);
+            if (rightElem) animateIcon(rightElem, SMALL);
+          }
+        );
+      });
+
+      function animateIcon(selectedDiv, sml) {
+        imageElem=selectedDiv.find("img");
+        var divSize=40;
+        var imgSize=32;
+        if (sml == MEDIUM) {
+          divSize=60;
+          imgSize=48;
+        }
+        else if (sml == LARGE) {
+          divSize=80;
+          imgSize=64;
+        }
+        var a1=selectedDiv.animate({
+          width: divSize,
+          height: divSize,
+        }, 0 );
+        var a2=imageElem.animate({
+          width: imgSize,
+          height: imgSize,
+        }, 0 );
+      }
    </script> 
 
 <!-- TradingView Widget BEGIN -->
@@ -161,7 +282,7 @@
      <tr>
        <td>News:<i id="reloadNews" class="reloadImg fa-solid fa-sync" onclick="javascript:loadNews($(this));"></i><div class="feedDiv" id="newsFeed">News Loading...</div></td>
        <td>Deals:<i id="reloadDeals" class="reloadImg fa-solid fa-sync" onclick="javascript:loadDeals($(this));"></i><div class="feedDiv" id="dealFeed">Deals Loading...</div></td>
-       <td>Tech News:<i id="reloadTech" class="reloadImg fa-solid fa-sync" onclick="javascript:loadTechNews($(this));"></i><div class="feedDiv" id="techNewsFeed"></div>Tech News Loading...</div></td>
+       <td>Tech News:<i id="reloadTech" class="reloadImg fa-solid fa-sync" onclick="javascript:loadTechNews($(this));"></i><div class="feedDiv" id="techNewsFeed">Tech News Loading...</div></td>
      </tr>
    </table>
    </div>
