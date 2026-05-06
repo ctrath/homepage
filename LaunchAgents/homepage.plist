@@ -5,7 +5,7 @@
     <key>Label</key>
     <string>com.cale.homepage</string>
     <key>WorkingDirectory</key>
-    <string>/Users/ctrath/Documents/containers/ipvs_workspace/src/github.com/ctrath/homepage/bin</string>
+    <string>/Users/ctrath/Documents/workspace/src/github.com/ctrath/homepage/bin</string>
     <key>ProgramArguments</key>
     <array>
         <string>/opt/homebrew/bin/node</string>
